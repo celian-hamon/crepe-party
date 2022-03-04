@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://img.icons8.com/external-vitaliy-gorbachev-flat-vitaly-gorbachev/58/000000/external-crepe-sweet-vitaliy-gorbachev-flat-vitaly-gorbachev.png">
+    <title>Crepe Party</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            transition: all 0.5s;
+            overflow-x: hidden;
+        }
+
+        body {
+            /* background:url('bg.jpeg'); */
+            background-color: #f5f5f5;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            min-height: 200px;
+            min-width: 200px;
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: auto;
+            margin: 20px;
+        }
+
+        /* Add some padding inside the card container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            background-color: #f1f1f1;
+            padding: 2px 16px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 90%;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 300;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        label {
+            font-size: 25px;
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .ingredients {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .ingredient-card {
+            flex: 0 0 33.333333%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: auto;
+            height: auto;
+            background-color: #fff;
+            width: 150px;
+            height: 150px;
+            justify-content: space-between;
+        }
+
+        .ingredient-card:hover {
+            background-color: #e9e9e9;
+        }
+
+        .ingredient-title {
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        img {
+            margin-top: 10px;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        .recette {
+            padding: 20px;
+            max-width: 1050px;
+        }
+
+        h2 {
+            padding: 5px;
+        }
+
+        .amazon-input {
+            width: 20px;
+        }
+        .asin-input {
+            display: none;
+        }
+
+        .shop-control {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .dark-mode {
+            display: block;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background:rgb(24, 24, 24);
+            z-index: 3000;
+            border-radius:15px;
+            margin: 0 0 99vh 100vw;
+        }
+        .dark-mode:hover{
+            transform:translateX(-12px) translateY(12px) ;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dark-mode" onclick="switchTheme();">
+        <img src="/icons8-soleil.gif" alt="lune" width="40px">
+    </div>
+    <div class="card">
+        <div class="container" id="container-input">
+            <h1 style="margin:5px 0 20px 0;"><b>Crepes Party</b></h1>
+            <label for="quantite">Nombre de participants :</label>
+            <input type="number" id="quantite" name="quantite" min="1" value="12" onchange="calculate()">
+        </div>
+    </div>
+    <div class="card">
+        <div class="container" id="container-ingredients">
+            <div class="ingredients">
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="container" id="container-recette">
+            <div class="recette">
+                <h2>ÉTAPE 1</h2>
+                <p>
+                    Mettre la farine dans une terrine et former un puits.
+                </p>
+                <h2>ÉTAPE 2</h2>
+                <p>
+                    Y déposer les oeufs entiers, le sucre, l'huile et le beurre.
+                </p>
+                <h2>ÉTAPE 3</h2>
+                <p>
+                    Mélanger délicatement avec un fouet en ajoutant au fur et à mesure le lait. La pâte ainsi obtenue
+                    doit avoir une consistance d'un liquide légèrement épais.
+
+
+                </p>
+                <h2>ÉTAPE 4</h2>
+                <p>
+                    Faire chauffer une poêle antiadhésive et la huiler très légèrement à l'aide d'un papier Essuie-tout.
+                    Y verser une louche de pâte, la répartir dans la poêle puis attendre qu'elle soit cuite d'un côté
+                    avant de la retourner. Cuire ainsi toutes les crêpes à feu doux.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="container" id="container-shop">
+            <div class="shop">
+                <form method="GET"  action="https://www.amazon.fr/gp/aws/cart/add.html" id="amazon">
+
+                    <!-- FARINE : B01DW8518M
+                    SUCRE  : B07ZWPV8LV
+                    OEUF   : B00BJQJQX0
+                    BEURRE : B019WXFC2G
+                    LAIT   : B07YQFXYKD -->
+
+                    <div class="shop-control">
+                        <input type="text" class="asin-input" name="ASIN.1" value="B01DW8518M">
+                        <img src="farine.png" alt="farine" width="45">
+                        <label for="Quantity.1" >Farine</label>
+                        <input type="text" class="amazon-input"name="Quantity.1" id="Farine-shop">
+                    </div>
+                    <div class="shop-control">
+                        <input type="text" class="asin-input" name="ASIN.2" value="B07ZWPV8LV">
+                        <img src="Sucre.png" alt="farine" width="45">
+                        <label for="Quantity.1" >Sucre</label>
+                        <input type="text" class="amazon-input" name="Quantity.2" id="Sucre-shop">
+                    </div>
+                    <div class="shop-control">
+                        <input type="text" class="asin-input" name="ASIN.3" value="B09NQ235SZ">
+                        <img src="Oeuf.png" alt="farine" width="45">
+                        <label for="Quantity.1" >Oeuf</label>
+                        <input type="text" class="amazon-input" name="Quantity.3" id="Oeuf-shop">
+                    </div>
+                    <div class="shop-control">
+                        <input type="text" class="asin-input" name="ASIN.4" value="B019WXFC2G">
+                        <img src="Beurre.png" alt="farine" width="45">
+                        <label for="Quantity.1" >Beurre</label>
+                        <input type="text" class="amazon-input" name="Quantity.4" id="Beurre-shop">
+                    </div>
+                    <div class="shop-control">
+                        <input type="text" class="asin-input" name="ASIN.5" value="B07YQFXYKD">
+                        <img src="Lait.png" alt="farine" width="45">
+                        <label for="Quantity.1" >Lait</label>
+                        <input type="text" class="amazon-input" name="Quantity.5" id="Lait-shop">
+                    </div>
+                    <input type="submit" name="add" value="SHOP" style="margin-left:7%;width: 150px;height:40px;margin-top: 10px;"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let themeClair = true; 
+        /* 
+        farine = 63g * nb de personnes
+        oeufs = 1 oeuf * nb de personnes
+        lait = 20 * nb de personnes
+        sucre = 0.5 * nb de personnes
+        beurre = 13 * nb de personnes
+        */
+        let ingredients = ["Oeuf", "Beurre", "Sucre", "Farine", "Lait"]
+        let quantiteAlias = {
+            "Oeuf": "",
+            "Beurre": "grammes",
+            "Sucre": "cuilleres",
+            "Farine": "grammes",
+            "Lait": "centilitres"
+        }
+        let shoppingList = {
+            "Oeuf": "Boite de 12 oeufs",
+            "Beurre": "Motte de beurre",
+            "Sucre": "Paquet de sucre",
+            "Farine": "Paquet de farine",
+            "Lait": "Bouteille de lait"
+        }
+        for (let key in quantiteAlias) {
+            let div = document.createElement("div")
+            if (key == "Oeuf") {
+                div.innerHTML = `
+            <div class="ingredient-card" id="${key}-card">
+                <img src="${key}.png" alt="${key}" width="60" id="e" onclick="breakE();">
+                <h1 class="ingredient-title"><span id="${key}" ></span> oeuf(s)</h1>
+            </div>
+            `
+            } else {
+                div.innerHTML = `
+            <div class="ingredient-card" id="${key}-card">
+                <img src="${key}.png" alt="${key}" width="60">
+                <h1 class="ingredient-title"><span id="${key}" ></span> ${quantiteAlias[key]} de ${key}</h1>
+            </div>
+            `
+            }
+            document.querySelector(".ingredients").appendChild(div)
+        }
+        function breakE() {
+            let oeufs = document.querySelector("#e")
+            oeufs.src = "https://img.cuisineaz.com/680x357/2021/05/20/i170691-oeuf-casse.jpeg"
+        }
+        /*
+         FARINE : B082VVC1CX
+         SUCRE  : B084Z5YZS3
+         OEUF   : B00BJQJQX0
+         BEURRE : B00BJQJQX0
+         LAIT   : B00BJQJQX0
+        */
+        asinMap = {
+            "Oeuf": "B00BJQJQX0",
+            "Beurre": "B00BJQJQX0",
+            "Sucre": "B00BJQJQX0",
+            "Farine": "B00BJQJQX0",
+            "Lait": "B00BJQJQX0"
+        }
+        //form is created but cannot post data to amazon api 
+        // i=0
+        // for (let key in shoppingList) {
+        //     i++
+        //     let div = document.querySelector("form")
+        //     // let div = document.createElement("div")        
+        //         div.innerHTML = `
+
+        //         <img src="${key}.png" alt="${key}" width="60">
+        //         <input type="text" name="ASIN.${i}" value="${asinMap[key]}" />
+        //         <label for="${key}">${key}</label>
+        //         <input type="text" class="amazon-input" name="Quantity.${i}" id="${key}-shop">
+
+        //     `   
+        //     // div.classList.add("shop-control")
+
+        //     // document.querySelector("#amazon").appendChild(div)
+        // }
+        // document.querySelector("#amazon").innerHTML += '<input type="submit" name="add" value="add" /> '
+
+        function calculate() {
+            //calculate the quantity of each ingredient
+            let nbPers = document.querySelector("#quantite").value
+            let farine = 63 * nbPers
+            let oeufs = 1 * nbPers
+            let lait = 20 * nbPers
+            let sucre = 0.5 * nbPers
+            let beurre = 13 * nbPers
+            document.querySelector("#Farine").innerHTML = farine
+            document.querySelector("#Oeuf").innerHTML = oeufs
+            document.querySelector("#Lait").innerHTML = lait
+            document.querySelector("#Sucre").innerHTML = sucre
+            document.querySelector("#Beurre").innerHTML = beurre
+
+            //calculate the quantity to buy for each ingredient
+            let oeufsToBuy = Math.ceil(oeufs / 12)
+            let farineToBuy = Math.ceil(farine / 1000)
+            let laitToBuy = Math.ceil(lait / 100)
+            let sucreToBuy = Math.ceil(sucre / 200)
+            let beurreToBuy = Math.ceil(beurre / 500)
+            document.querySelector("#Oeuf-shop").value = oeufsToBuy
+            document.querySelector("#Farine-shop").value = farineToBuy
+            document.querySelector("#Lait-shop").value = laitToBuy
+            document.querySelector("#Sucre-shop").value = sucreToBuy
+            document.querySelector("#Beurre-shop").value = beurreToBuy
+
+        }
+        calculate();
+        document.addEventListener("keyup", function () {
+            calculate();
+        })
+        function switchTheme(){
+            if (themeClair) {
+                console.log("Switching to dark theme")
+                //passer au theme sombre
+
+                //for each container change the backgroundColor
+                document.querySelector("body").style.backgroundColor = "#000"
+                document.querySelector("#container-input").style.backgroundColor = "#121212"
+                document.querySelector("#container-ingredients").style.backgroundColor = "#121212"
+                document.querySelector("#container-recette").style.backgroundColor = "#121212"
+                document.querySelector("#container-shop").style.backgroundColor = "#121212"
+
+                for (var key in quantiteAlias){
+                    document.querySelector(`#${key}-card`).style.backgroundColor = "#141414"
+                }
+
+                document.querySelector("body").style.color = "#fff"
+
+                themeClair = false;
+            }
+            else if (!themeClair){
+                console.log("Switching to clear theme")
+                //passer au theme clair 
+
+                //for each container change the backgroundColor
+                document.querySelector("body").style.backgroundColor = ""
+                document.querySelector("#container-input").style.backgroundColor = ""
+                document.querySelector("#container-ingredients").style.backgroundColor = ""
+                document.querySelector("#container-recette").style.backgroundColor = ""
+                document.querySelector("#container-shop").style.backgroundColor = ""
+
+                for (var key in quantiteAlias){
+                    document.querySelector(`#${key}-card`).style.backgroundColor = ""
+                }
+
+                document.querySelector("body").style.color = ""
+
+                themeClair = true;
+            }
+        }
+    </script>
+</body>
+
+</html>
